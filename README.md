@@ -6,9 +6,10 @@ React, Express, Node.js, MongoDB, Redux, Framer Motion, Cloudinary
 
 ### How to run
 
-Run npm install inside both folders
+Run ```npm install``` inside both folders
 
-Frontend: npm run dev
+Frontend: ```npm run dev```
 
-Backend: nodemon index.js
+Backend: ```nodemon index.js```
+
 
