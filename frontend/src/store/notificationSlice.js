@@ -5,13 +5,15 @@ const notificationSlice = createSlice({
   initialState: {
     username: null,
     postid:null,
-    type:null
+    type:null,
+    isRead: false
   },
   reducers: {
     resetNotificationState: (state) => {
       state.username = null;
       state.postid = null;
       state.type = null;
+      state.isRead = null
     },
     updateField: (state, action) => {
       const { field, value } = action.payload;
@@ -21,6 +23,7 @@ const notificationSlice = createSlice({
         state.username=action.payload.username;
         state.postid=action.payload.postid;
         state.type=action.payload.type;
+        state.isRead=action.payload.isRead;
     }
   },
 });

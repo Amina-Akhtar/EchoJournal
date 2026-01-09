@@ -9,9 +9,13 @@ import Analytics from './components/Analytics';
 import Profile from './components/Profile';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { GoogleOAuthProvider } from "@react-oauth/google";
+
+const client_id=import.meta.env.VITE_GOOGLE_CLIENT_ID
 
 function App() {
   return (
+    <GoogleOAuthProvider clientId={client_id}>
     <div className="App">
       <Routes>
         <Route element={<PrivateRoute />}>
@@ -27,6 +31,7 @@ function App() {
       </Routes>
       <ToastContainer />
     </div>
+    </GoogleOAuthProvider>
   );
 }
 export default App;

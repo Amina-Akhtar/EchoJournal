@@ -12,10 +12,14 @@ const userSchema = new mongoose.Schema({
         unique: true
     },
     password: {
+        type: String
+    },
+    authProvider: {
         type: String,
-        required: true
+        enum: ["local", "google"],
+        default: "local"
     }
 }, { timestamps: true });
 
 const User = mongoose.model("User", userSchema);
-module.exports=User;
+module.exports = User;

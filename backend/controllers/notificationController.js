@@ -22,3 +22,21 @@ exports.getNotifications = async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 };
+
+exports.updateNotification = async (req, res) => {
+    const { notificationId } = req.params;
+    try {
+        const updated = await Notification.findByIdAndUpdate(
+            notificationId,
+            { isRead: true },
+            { new: true }
+        );
+        if (!updated) return res.status(404).json({ message: 'Notification not found' });
+        res.status(200).json(updated);
+    }
+    catch (err) {
+        console.error('Error updating notification:', err);
+        res.status(500).json({ message: 'Server error' });
+    }
+
+};

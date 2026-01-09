@@ -16,6 +16,11 @@ const notificationSchema = new mongoose.Schema({
         enum: ['liked', 'disliked'],
         required: true
     },
+    isRead:{
+        type:Boolean,
+        default:false,
+        required:true
+    },
     timestamp: {
         type: Date,
         default: Date.now

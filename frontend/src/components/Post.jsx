@@ -20,7 +20,6 @@ function Post({ onClose, onSave ,previousPost}) {
     }
   }, [previousPost]);
     const toggleVisibility = () => setIsPublic(!isPublic);
-//cloudinary: https://console.cloudinary.com/app/c-26eedbfa0fa5688670c6bc4e24b9db/assets/media_library/search?q=&view_mode=mosaic
     const handleImageUpload = async (e) => {
         const file = e.target.files?.[0];
         if (file) {
@@ -75,7 +74,7 @@ function Post({ onClose, onSave ,previousPost}) {
 
                     <label className="flex items-center gap-2 cursor-pointer px-4 py-2 bg-[#b3a0d9] text-black rounded-full font-medium hover:bg-[#9c89c0] transition">
                         <BiImageAdd />
-                        <span>Upload</span>
+                        <span>Image</span>
                         <input
                             type="file"
                             accept="image/*"

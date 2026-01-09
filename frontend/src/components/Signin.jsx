@@ -7,6 +7,8 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import { FcGoogle } from 'react-icons/fc';
+import { useGoogleLogin } from "@react-oauth/google";
 
 function Signin() {
   const dispatch = useDispatch();
@@ -29,7 +31,7 @@ function Signin() {
             }
           });
         if (response.status == 201) {
-          dispatch(loginSuccess({username,password}));
+          dispatch(loginSuccess({ username, password }));
           toast.success('Signin successfull!', {
             position: "top-right",
             autoClose: 5000,
@@ -56,6 +58,50 @@ function Signin() {
       }
     }
   };
+
+   const googleLogin = useGoogleLogin({
+  flow: "auth-code",
+  onSuccess: async (response) => {
+    try { 
+      const res = await axios.post(
+        "http://localhost:5000/api/user/google",
+        { code: response.code },
+        { withCredentials: true }
+      );
+      dispatch(loginSuccess({username: res?.data?.user?.username||'User', password: res?.data?.user?.password||''}));  
+      toast.success('Google Auth successfull!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+          navigate("/home");
+    } catch (err) {
+      const errorMessage = err?.response?.data?.message || 'Google Auth failed. Please try again.';
+        toast.error(errorMessage, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+    }
+  },
+  onError: () => {
+    toast.error("Google Auth failed. Please try again.", {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+  }
+});
 
   return (
     <div className="fixed inset-0 bg-[#f8f5fd] overflow-hidden flex flex-col items-center justify-center px-4 sm:px-6 py-6">
@@ -100,10 +146,6 @@ function Signin() {
               />
             </div>
 
-
-
-
-
             <button
               type="submit"
               className="w-full bg-[#b3a0d9] hover:bg-[#9c89c0] text-white font-medium py-2.5 rounded-lg shadow-md hover:shadow-lg transition-all"
@@ -112,6 +154,15 @@ function Signin() {
               Sign in
             </button>
           </form>
+
+          <button
+            type="submit"
+            className="w-full flex items-center justify-center gap-2 bg-[#b3a0d9] hover:bg-[#9c89c0] text-white font-medium py-2 rounded-lg shadow-md hover:shadow-lg transition-all"
+            onClick={googleLogin}
+          >
+            <FcGoogle size={22} />
+            <span >Continue with Google</span>
+          </button>
 
           <p className="text-sm text-gray-600 dark:text-gray-400 text-center">
             Don't have an account?{" "}
