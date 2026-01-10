@@ -112,13 +112,15 @@ exports.handleDislike = async (req, res) => {
 
     if (hasLiked) {
       post.likes = post.likes.filter(user => user !== username);
-      await Notification.deleteOne({ userId, postId, isread: False, type: 'liked' });
+      // Remove any existing 'liked' notification from this user for this post
+      await Notification.deleteOne({ userId, postId, type: 'liked' });
     }
 
     post.dislikes.push(username);
     await post.save();
 
-    await Notification.create({ userId, postId, isread: False, type: 'disliked' });
+    // Create a 'disliked' notification for this post
+    await Notification.create({ userId, postId, type: 'disliked' });
 
     res.status(200).json(post);
   } catch (err) {
