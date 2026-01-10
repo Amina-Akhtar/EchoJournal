@@ -1,6 +1,7 @@
 import React, { use, useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaHome, FaBell, FaChartLine, FaUser, FaSignOutAlt } from 'react-icons/fa';
+import { IoChatbubbleEllipses } from "react-icons/io5";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -9,9 +10,10 @@ import { useDispatch } from 'react-redux';
 import axios from 'axios';
 const navItems = [
   { name: 'Home', icon: <FaHome />, path: '/home' },
+  { name: 'Community', icon: <IoChatbubbleEllipses/> , path: '/community' },
   { name: 'Updates', icon: <FaBell />, path: '/updates' },
   { name: 'Analytics', icon: <FaChartLine />, path: '/analytics' },
-  { name: 'Profile', icon: <FaUser />, path: '/profile' },
+  { name: 'Profile', icon: <FaUser />, path: '/profile' }
 ];
 
 export default function Sidebar() {

@@ -7,6 +7,7 @@ import Home from './components/Home';
 import Updates from './components/Updates';
 import Analytics from './components/Analytics';
 import Profile from './components/Profile';
+import Community from './components/Community';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { GoogleOAuthProvider } from "@react-oauth/google";
@@ -23,6 +24,7 @@ function App() {
           <Route path='/updates' element={<Updates />} />
           <Route path='/analytics' element={<Analytics />} />
           <Route path='/profile' element={<Profile />} />
+          <Route path='/community' element={<Community/>}/>
         </Route>
         <Route path='/' element={<LandingPage />} />
         <Route path='/signin' element={<Signin />} />
